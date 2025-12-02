@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# COMMON DIRECTORIES
+export CTWS=~/dev/ctws/
+export JDIR=~/dev/java-ws/
+export OPENSRC=~/dev/opensrc/
+
+export EDITOR=nvim
+
+# ALIAS
+alias EDITOR=nvim
+alias vi=nvim
+alias vim=nvim
+
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+

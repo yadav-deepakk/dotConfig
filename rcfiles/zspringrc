@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# ensure installed - sdkman,java,maven/gradle and springboot
+
+# default values if no params has been passed
+DEFAULT_NAME="demo"
+DEFAULT_PACKAGE="com.example"
+DEFAULT_JAVA_VERSION=25
+DEFAULT_DEPENDENCY_LIST="web,lombok,actuator,devtools"
+DEFAULT_DESCRIPTION="Simple spring boot demo project."
+
+parseArgs() {
+
+  # default values if no params has been passed
+  NAME="$DEFAULT_NAME"
+  DESCRIPTION="$DEFAULT_DESCRIPTION"
+  PACKAGE="$DEFAULT_PACKAGE"
+  JAVA_VERSION="$DEFAULT_JAVA_VERSION"
+  DEPENDENCY_LIST="$DEFAULT_DEPENDENCY_LIST"
+
+  echo "Arguments:" "$@"
+
+  for arg in "$@"; do 
+    case $arg in 
+      -n=*|--name=*) NAME="${arg#*=}" ;;
+      -j=*|--java-version=*) JAVA_VERSION="${arg#*=}" ;;
+      -p=*|--package=*) PACKAGE="${arg#*=}" ;;
+      -d=*|--dependencies=*) LIST="${arg#*=}"; DEPENDENCY_LIST="$DEPENDENCY_LIST,$LIST" ;;
+      -des=*|--description=*) DESCRIPTION="${arg#*=}" ;;
+      *) echo "unknown option: $arg"; return 1 ;;
+    esac
+  done
+
+}
+
+printProjectInfo() {
+  echo "project name is: $NAME" 
+  echo "package name is: $PACKAGE" 
+  echo "java version is: $JAVA_VERSION" 
+  echo "dependency list is: $DEPENDENCY_LIST"
+  echo "description is: $DESCRIPTION"
+}
+
+runSpringInit() {
+  echo "running init..."
+  set -x 
+  spring init "$NAME" --build="$1" -t="$1-project" \
+    -a="$NAME" -d="$DEPENDENCY_LIST" --description="$DESCRIPTION" \
+    -j="$JAVA_VERSION" -n="$NAME" -g="$PACKAGE" \
+    --debug
+  set +x 
+  echo "stopped init!!!"
+}
+
+springm() {
+  parseArgs "$@" || return 1
+  printProjectInfo
+  runSpringInit maven
+}
+
+springg() {
+  parseArgs "$@" || return 1
+  printProjectInfo
+  runSpringInit gradle
+}
+
