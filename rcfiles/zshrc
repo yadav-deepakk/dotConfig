@@ -19,7 +19,6 @@ alias ll="ls -lrth"
 alias lr="ls -1R"
 alias la="ls -la"
 
-alias -="cd -"
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"
