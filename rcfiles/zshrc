@@ -9,6 +9,7 @@ export EDITOR=nvim
 
 # ALIAS
 alias EDITOR=nvim
+alias editor=nvim
 alias vi=nvim
 alias vim=nvim
 
