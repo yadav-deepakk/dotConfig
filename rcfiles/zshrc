@@ -10,6 +10,7 @@ export EDITOR=nvim
 # ALIAS
 alias EDITOR=nvim
 alias editor=nvim
+alias edit=nvim
 alias vi=nvim
 alias vim=nvim
 
