@@ -1,16 +1,11 @@
 #!/bin/bash
 
 # COMMON DIRECTORIES
-export CTWS=~/dev/ctws/
-export JDIR=~/dev/java-ws/
+export JDIR=~/dev/jdir/
 export OPENSRC=~/dev/opensrc/
-
-export EDITOR=nvim
 
 # ALIAS
 alias EDITOR=nvim
-alias editor=nvim
-alias edit=nvim
 alias vi=nvim
 alias vim=nvim
 
