@@ -6,7 +6,7 @@
 DEFAULT_NAME="demo"
 DEFAULT_PACKAGE="com.example"
 DEFAULT_JAVA_VERSION=25
-DEFAULT_DEPENDENCY_LIST="web,lombok,actuator,devtools"
+DEFAULT_DEPENDENCY_LIST="lombok,actuator,devtools"
 DEFAULT_DESCRIPTION="Simple spring boot demo project."
 
 parseArgs() {
@@ -20,8 +20,8 @@ parseArgs() {
 
   echo "Arguments:" "$@"
 
-  for arg in "$@"; do 
-    case $arg in 
+  for arg in "$@"; do
+    case $arg in
       -n=*|--name=*) NAME="${arg#*=}" ;;
       -j=*|--java-version=*) JAVA_VERSION="${arg#*=}" ;;
       -p=*|--package=*) PACKAGE="${arg#*=}" ;;
@@ -34,21 +34,21 @@ parseArgs() {
 }
 
 printProjectInfo() {
-  echo "project name is: $NAME" 
-  echo "package name is: $PACKAGE" 
-  echo "java version is: $JAVA_VERSION" 
+  echo "project name is: $NAME"
+  echo "package name is: $PACKAGE"
+  echo "java version is: $JAVA_VERSION"
   echo "dependency list is: $DEPENDENCY_LIST"
   echo "description is: $DESCRIPTION"
 }
 
 runSpringInit() {
   echo "running init..."
-  set -x 
+  set -x
   spring init "$NAME" --build="$1" -t="$1-project" \
     -a="$NAME" -d="$DEPENDENCY_LIST" --description="$DESCRIPTION" \
     -j="$JAVA_VERSION" -n="$NAME" -g="$PACKAGE" \
     --debug
-  set +x 
+  set +x
   echo "stopped init!!!"
 }
 
