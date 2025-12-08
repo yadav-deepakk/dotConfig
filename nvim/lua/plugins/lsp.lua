@@ -1,38 +1,22 @@
 return {
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    branch = 'master', 
-    lazy = false,
-    build = ":TSUpdate", 
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {ui={border="rounded"}} },
+      "neovim/nvim-lspconfig",
+    },
     opts = {
-      ensure_installed = { 
-        "c", "cpp", "lua", "vim", "vimdoc", 
-        "query", "markdown", "markdown_inline",
-        "typescript", "html", "css", "xml", 
-        "java", "groovy", 
-      },
-      auto_install = true,
-    }, 
-  },
-
-  { 
-    "mason-org/mason.nvim",
-    opts = {
-      ui = {
-        border = "rounded",
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗"
-        }, 
+      automatic_enable = { exclude={"jdtls"} },
+      ensure_installed = {
+        "vimls",
+        "lua_ls",
+        "ts_ls",
+        "pyright",
+        "jdtls",
       },
     },
-  }, 
-
-  { "neovim/nvim-lspconfig" },
-
-  { "mfussenegger/nvim-dap" }, 
+  },
 
 }
 
