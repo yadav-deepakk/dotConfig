@@ -1,6 +1,6 @@
 return {
 
-  { "sphamba/smear-cursor.nvim", },
+  { "sphamba/smear-cursor.nvim", opts = {} },
 
   {
     "lukas-reineke/indent-blankline.nvim",
