@@ -16,7 +16,7 @@ vim.opt.timeoutlen = 350
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize = 25
+vim.g.netrw_winsize = 23
 
 -----------------------------
 -- keymaps
@@ -46,16 +46,23 @@ vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 -- vim packages
 -----------------------------
 vim.pack.add({
-  { src = "https://github.com/rebelot/kanagawa.nvim", },
+  -- ui
+  { src = "hatps://github.com/rebelot/kanagawa.nvim", },
   { src = "https://github.com/nvim-tree/nvim-web-devicons", },
-  { src = "https://github.com/ibhagwan/fzf-lua", },
+  { src = "https://github.com/lukas-reineke/indent-blankline.nvim", name="ibl", },
+  -- finders
+  { src = "hatps://github.com/ibhagwan/fzf-lua", },
+  { src = "https://github.com/nvim-lua/plenary.nvim", }, -- dependency to harpoon
+  { src = "https://github.com/ThePrimeagen/harpoon", },
+  -- parser, lsp and completion
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", },
   { src = "https://github.com/neovim/nvim-lspconfig", },
   { src = "https://github.com/mason-org/mason-lspconfig.nvim", },
   { src = "https://github.com/mason-org/mason.nvim", },
-  { src = "https://github.com/lukas-reineke/indent-blankline.nvim", name="ibl", },
   { src = "https://github.com/nvim-mini/mini.pairs", },
   { src = "https://github.com/nvim-mini/mini.completion", },
+  -- debug adapters
+  -- ai
 })
 
 -- ui
@@ -88,7 +95,7 @@ require("mason").setup({ui={border="rounded"}})
 local servers = { "vimls", "lua_ls", "ts_ls", "jdtls" }
 require("mason-lspconfig").setup({ ensure_installed = servers })
 vim.lsp.enable({
-  servers = { "lua_ls", "ts_ls", "jdtls" },
+  servers = servers,
   on_attach = function(client, bufnr)
     require("mini.completion").on_attach(client, bufnr)
   end
@@ -115,9 +122,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("LSP_GROUP", {}),
   pattern = "*",
   callback = function()
-		local ft = vim.bo.filetype
-		local client = vim.inspect(vim.lsp.buf_get_clients())
-    print("filetype:" .. ft .. ", lsp:" .. client)
+
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border="rounded"}) end)
+    vim.keymap.set("n", "gra", "<cmd>FzfLua lsp_code_action<cr>")
+    vim.keymap.set("n", "grr", "<cmd>FzfLua lsp_references<cr>")
+    vim.keymap.set("n", "gri", "<cmd>FzfLua lsp_implementations<cr>")
+    vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<cr>")
+    vim.keymap.set("n", "gD", "<cmd>FzfLua lsp_declarations<cr>")
+    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_symbols<cr>")
+    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_workspace_symbols<cr>")
+    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_diagnostics<cr>")
+
   end
 })
 
