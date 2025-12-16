@@ -4,6 +4,7 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+vim.opt.wrap = false
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -16,7 +17,7 @@ vim.opt.timeoutlen = 350
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize = 23
+vim.g.netrw_winsize = 25
 
 -----------------------------
 -- keymaps
@@ -47,26 +48,27 @@ vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 -----------------------------
 vim.pack.add({
   -- ui
-  { src = "hatps://github.com/rebelot/kanagawa.nvim", },
+  { src = "https://github.com/rebelot/kanagawa.nvim", },
   { src = "https://github.com/nvim-tree/nvim-web-devicons", },
-  { src = "https://github.com/lukas-reineke/indent-blankline.nvim", name="ibl", },
+  { src = "https://github.com/lukas-reineke/indent-blankline.nvim", name = "ibl", },
   -- finders
-  { src = "hatps://github.com/ibhagwan/fzf-lua", },
-  { src = "https://github.com/nvim-lua/plenary.nvim", }, -- dependency to harpoon
+  { src = "https://github.com/ibhagwan/fzf-lua", },
+  { src = "https://github.com/nvim-lua/plenary.nvim", },
   { src = "https://github.com/ThePrimeagen/harpoon", },
   -- parser, lsp and completion
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", },
   { src = "https://github.com/neovim/nvim-lspconfig", },
   { src = "https://github.com/mason-org/mason-lspconfig.nvim", },
   { src = "https://github.com/mason-org/mason.nvim", },
-  { src = "https://github.com/nvim-mini/mini.pairs", },
   { src = "https://github.com/nvim-mini/mini.completion", },
+  { src = "https://github.com/nvim-mini/mini.pairs", },
   -- debug adapters
   -- ai
 })
 
 -- ui
 require("kanagawa").setup({transparent=true,theme="dragon"})
+require("ibl").setup({})
 vim.cmd[[ colorscheme kanagawa ]]
 
 -- finders
@@ -87,15 +89,23 @@ vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<cr>")
 vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua files cwd=~/.config<cr>")
 vim.keymap.set("n", "<leader><space>", "<cmd>FzfLua builtin<cr>")
 
--- lsp
-require("ibl").setup({})
+require("harpoon").setup({ menu = { width = 100, }, })
+vim.keymap.set("n", "<leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>")
+vim.keymap.set("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>")
+vim.keymap.set("n", "<leader>1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>lua require('harpoon.ui').nav_next()<cr>")
+vim.keymap.set("n", "<Tab>", "<cmd>lua require('harpoon.ui').nav_prev()<cr>")
+
+-- lsp and completion
 require("mini.pairs").setup({})
 require("mini.completion").setup({})
-require("mason").setup({ui={border="rounded"}})
-local servers = { "vimls", "lua_ls", "ts_ls", "jdtls" }
-require("mason-lspconfig").setup({ ensure_installed = servers })
+require("mason").setup({ ui={border="rounded"} })
+require("mason-lspconfig").setup({
+  automatic_enable = { exclude = { "jdtls" } },
+  ensure_installed = { "vimls", "lua_ls", "ts_ls", "jdtls" },
+})
 vim.lsp.enable({
-  servers = servers,
+  servers = { "vimls", "lua_ls", "ts_ls", "jdtls" },
   on_attach = function(client, bufnr)
     require("mini.completion").on_attach(client, bufnr)
   end
@@ -124,14 +134,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
 
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border="rounded"}) end)
-    vim.keymap.set("n", "gra", "<cmd>FzfLua lsp_code_action<cr>")
+    vim.keymap.set("n", "gra", "<cmd>FzfLua lsp_code_actions<cr>")
     vim.keymap.set("n", "grr", "<cmd>FzfLua lsp_references<cr>")
     vim.keymap.set("n", "gri", "<cmd>FzfLua lsp_implementations<cr>")
+    vim.keymap.set("n", "grd", "<cmd>FzfLua lsp_document_diagnostics<cr>")
+    vim.keymap.set("n", "gws", "<cmd>FzfLua lsp_workspace_symbols<cr>")
+    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_symbols<cr>")
     vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<cr>")
     vim.keymap.set("n", "gD", "<cmd>FzfLua lsp_declarations<cr>")
-    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_symbols<cr>")
-    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_workspace_symbols<cr>")
-    vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_diagnostics<cr>")
 
   end
 })
