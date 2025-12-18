@@ -1,6 +1,5 @@
 vim.opt.number=true
 vim.opt.relativenumber=true
-vim.opt.showmode=false
 vim.opt.wrap=false
 vim.opt.signcolumn="yes"
 vim.opt.cursorline=false
@@ -17,5 +16,5 @@ vim.opt.autoindent=true
 vim.opt.scrolloff=10
 vim.opt.sidescrolloff=8
 
-vim.opt.updatetime=250
-vim.opt.timeoutlen=300
+vim.opt.updatetime=225
+vim.opt.timeoutlen=350

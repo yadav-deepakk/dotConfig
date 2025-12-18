@@ -14,8 +14,11 @@ return {
     },
     opts = {
       winopts = {
-        width = 0.92,
+        width = 0.82,
         height = 0.92,
+        preview = {
+          layout = "vertical"
+        }
       },
     }
   },
@@ -24,14 +27,13 @@ return {
     "ThePrimeagen/harpoon",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>T",  "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>" },
+      { "<", "<cmd>lua require('harpoon.ui').nav_prev()<cr>" },
+      { ">", "<cmd>lua require('harpoon.ui').nav_next()<cr>" },
       { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>" },
       { "<leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
-      { "<leader>h1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>" },
-      { "<S-Tab>",    "<cmd>lua require('harpoon.ui').nav_prev()<cr>" },
-      { "<Tab>",      "<cmd>lua require('harpoon.ui').nav_next()<cr>" },
+      { "<leader>1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>" },
     },
-    opts = { menu = { width=90 }},
+    opts = { menu={width=90} },
   },
 
 }

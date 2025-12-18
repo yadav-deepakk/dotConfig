@@ -21,23 +21,5 @@ return {
     },
   },
 
-  {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-      ts_config = {
-        lua = { "string" },
-        javascript = { "template_string" },
-      },
-    },
-  },
-
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { sign = false },
-  },
-
 }
 

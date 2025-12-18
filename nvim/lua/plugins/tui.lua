@@ -1,59 +1,37 @@
 return {
 
-  { "sphamba/smear-cursor.nvim", opts = {} },
-
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     opts = {},
   },
 
-
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        flavour = "macchiato",
-        transparent_background = true,
-        float = { transparent = true, },
+      require("gruvbox").setup({
+        transparent_mode = true, -- Enable transparent mode
+        overrides = { Normal = { bg = "NONE" }, }
       })
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd [[ colorscheme gruvbox ]]
     end
-  } ,
-
-  -- {
-  --   "rebelot/kanagawa.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     local kanagawa = require("kanagawa")
-  --     kanagawa.setup({ transparent=true, })
-  --     kanagawa.load("dragon")
-  --   end,
-  -- },
+  },
 
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = { sign = false },
+  },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
     opts = {
-      tabline = { },
-      sections = {
-        lualine_a = {"mode"},
-        lualine_b = {"branch", "diff", "diagnostics"},
-        lualine_c = {{"filename", path=1 }},
-        lualine_x = {"encoding", "fileformat", "filetype"},
-        lualine_y = {"progress"},
-        lualine_z = {"location"}
-      },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {"filename"},
-        lualine_x = {"location"},
-        lualine_y = {},
-        lualine_z = {}
+      check_ts = true,
+      ts_config = {
+        lua = { "string" },
+        javascript = { "template_string" },
       },
     },
   },
