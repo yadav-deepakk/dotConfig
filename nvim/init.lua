@@ -38,6 +38,7 @@ vim.keymap.set("v", "d", "\"_d")
 vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
+vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>")
 vim.keymap.set("n", "<leader>tt", "<cmd>botright 20split | terminal<cr>i")
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohl<cr>")
@@ -60,6 +61,7 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig", },
   { src = "https://github.com/mason-org/mason-lspconfig.nvim", },
   { src = "https://github.com/mason-org/mason.nvim", },
+  { src = "https://github.com/mfussenegger/nvim-jdtls"},
   { src = "https://github.com/nvim-mini/mini.completion", },
   { src = "https://github.com/nvim-mini/mini.pairs", },
   -- debug adapters
@@ -89,19 +91,18 @@ vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<cr>")
 vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua files cwd=~/.config<cr>")
 vim.keymap.set("n", "<leader><space>", "<cmd>FzfLua builtin<cr>")
 
-require("harpoon").setup({ menu = { width = 100, }, })
+require("harpoon").setup({ menu={width=100} })
 vim.keymap.set("n", "<leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>")
 vim.keymap.set("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>")
 vim.keymap.set("n", "<leader>1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
-vim.keymap.set("n", "<S-Tab>", "<cmd>lua require('harpoon.ui').nav_next()<cr>")
-vim.keymap.set("n", "<Tab>", "<cmd>lua require('harpoon.ui').nav_prev()<cr>")
+vim.keymap.set("n", ">", "<cmd>lua require('harpoon.ui').nav_next()<cr>")
+vim.keymap.set("n", "<", "<cmd>lua require('harpoon.ui').nav_prev()<cr>")
 
 -- lsp and completion
 require("mini.pairs").setup({})
 require("mini.completion").setup({})
 require("mason").setup({ ui={border="rounded"} })
 require("mason-lspconfig").setup({
-  automatic_enable = { exclude = { "jdtls" } },
   ensure_installed = { "vimls", "lua_ls", "ts_ls", "jdtls" },
 })
 vim.lsp.enable({
@@ -132,7 +133,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("LSP_GROUP", {}),
   pattern = "*",
   callback = function()
-
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border="rounded"}) end)
     vim.keymap.set("n", "gra", "<cmd>FzfLua lsp_code_actions<cr>")
     vim.keymap.set("n", "grr", "<cmd>FzfLua lsp_references<cr>")
@@ -142,7 +142,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "g0", "<cmd>FzfLua lsp_document_symbols<cr>")
     vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<cr>")
     vim.keymap.set("n", "gD", "<cmd>FzfLua lsp_declarations<cr>")
-
-  end
+  end,
 })
 
