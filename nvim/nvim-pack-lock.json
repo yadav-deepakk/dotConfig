@@ -32,6 +32,10 @@
       "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a",
       "src": "https://github.com/nvim-mini/mini.pairs"
     },
+    "nvim-dap": {
+      "rev": "5860c7c501eb428d3137ee22c522828d20cca0b3",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
     "nvim-jdtls": {
       "rev": "f73731b543f5971e0da9665eb1d7ceffe1fde71f",
       "src": "https://github.com/mfussenegger/nvim-jdtls"

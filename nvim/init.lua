@@ -65,6 +65,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-mini/mini.completion", },
   { src = "https://github.com/nvim-mini/mini.pairs", },
   -- debug adapters
+  { src = "https://github.com/mfussenegger/nvim-dap"},
   -- ai
 })
 
@@ -134,6 +135,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   pattern = "*",
   callback = function()
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border="rounded"}) end)
+    vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help)
     vim.keymap.set("n", "gra", "<cmd>FzfLua lsp_code_actions<cr>")
     vim.keymap.set("n", "grr", "<cmd>FzfLua lsp_references<cr>")
     vim.keymap.set("n", "gri", "<cmd>FzfLua lsp_implementations<cr>")
@@ -143,5 +145,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<cr>")
     vim.keymap.set("n", "gD", "<cmd>FzfLua lsp_declarations<cr>")
   end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("JAVA_GROUP", {}),
+  pattern = { "java" },
+  callback = function()
+    local opts = { buffer=true}
+    vim.keymap.set("n", "<leader>O", "<cmd>lua require'jdtls'.organize_imports()<cr>", opts)
+    vim.keymap.set("n", "crv", "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
+    vim.keymap.set("v", "crv", "<esc><Cmd>lua require('jdtls').extract_variable(true)<cr>", opts)
+    vim.keymap.set("n", "crc", "<cmd>lua require('jdtls').extract_constant()<cr>", opts)
+    vim.keymap.set("v", "crc", "<esc><Cmd>lua require('jdtls').extract_constant(true)<cr>", opts)
+    vim.keymap.set("v", "crm", "<esc><Cmd>lua require('jdtls').extract_method(true)<cr>", opts)
+
+    -- " If using nvim-dap
+    -- " This requires java-debug and vscode-java-test bundles, see install steps in this README further below.
+    -- nnoremap <leader>df <Cmd>lua require'jdtls'.test_class()<CR>
+    -- nnoremap <leader>dn <Cmd>lua require'jdtls'.test_nearest_method()<CR>
+
+  end
 })
 
