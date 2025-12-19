@@ -1,16 +1,16 @@
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group=vim.api.nvim_create_augroup("HIGHLIGHT_YANK_GROUP", {}),
-  pattern="*",
-  callback=function()
-    vim.hl.on_yank({timeout=40})
+  group = vim.api.nvim_create_augroup("HIGHLIGHT_YANK_GROUP", {}),
+  pattern = "*",
+  callback = function()
+    vim.hl.on_yank({timeout = 40})
   end
 })
 
 -- remove trailing spaces
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group=vim.api.nvim_create_augroup("DKY_GROUP", {}),
-  pattern="*",
+  group = vim.api.nvim_create_augroup("DKY_GROUP", {}),
+  pattern = "*",
   callback = function()
     vim.cmd [[ %s/\s\+$//e ]]
   end
@@ -18,9 +18,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- add lsp related keymaps
 vim.api.nvim_create_autocmd('LspAttach', {
-  group=vim.api.nvim_create_augroup("LSP_GROUP", {}),
-  callback=function(e)
-    local opts={ buffer=e.buf }
+  group = vim.api.nvim_create_augroup("LSP_GROUP", {}),
+  callback = function(e)
+    local opts = { buffer = e.buf }
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border="rounded"}) end, opts)
     vim.keymap.set("n", "gws", function() vim.lsp.buf.workspace_symbol() end, opts)

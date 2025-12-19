@@ -11,7 +11,7 @@ return {
     priority = 1000,
     config = function()
       require("gruvbox").setup({
-        transparent_mode = true, -- Enable transparent mode
+        transparent_mode = true,
         overrides = { Normal = { bg = "NONE" }, }
       })
       vim.cmd [[ colorscheme gruvbox ]]

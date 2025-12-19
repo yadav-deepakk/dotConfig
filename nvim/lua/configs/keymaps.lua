@@ -21,7 +21,7 @@ vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>i")
-vim.keymap.set("n", "<leader>tt", "<cmd>botright20 split | terminal<cr>i")
+vim.keymap.set("n", "<leader>tt", "<cmd>botright25 split | terminal<cr>i")
 vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
 vim.keymap.set("n", "<leader>dd", "<cmd>bd<cr>")
 

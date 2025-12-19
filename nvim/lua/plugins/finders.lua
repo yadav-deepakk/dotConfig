@@ -3,7 +3,6 @@ return {
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy=false,
     keys = {
       { "<leader>ff",       "<cmd>FzfLua files<cr>" },
       { "<leader>fc",       "<cmd>FzfLua files cwd=~/.config<cr>" },
@@ -33,7 +32,7 @@ return {
       { "<leader>hh", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
       { "<leader>1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>" },
     },
-    opts = { menu={width=90} },
+    opts = { menu = { width = 90 } },
   },
 
 }
