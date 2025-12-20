@@ -1,6 +1,7 @@
 return {
 
   { "mfussenegger/nvim-jdtls", },
+  { "nvim-mini/mini.completion", },
 
   {
     "neovim/nvim-lspconfig",
