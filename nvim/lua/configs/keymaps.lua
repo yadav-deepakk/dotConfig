@@ -1,8 +1,12 @@
 vim.g.mapleader=" "
-vim.g.maplocalleader=","
+vim.g.maplocalleader="\\"
 vim.g.netrw_liststyle=3
 vim.g.netrw_browse_split=0
 vim.g.netrw_winsize=25
+
+-- disable netrw
+vim.g.loaded_netrw=1
+vim.g.loaded_netrwPlugin=1
 
 -- disable arrow key movements
 vim.keymap.set({"n", "v", "i"}, "<right>", "<cmd>lua print('WARN: press l to move right')<cr>")
@@ -17,7 +21,7 @@ vim.keymap.set("n", "<c-k>", "<c-w>k")
 vim.keymap.set("n", "<c-l>", "<c-w>l")
 
 -- buffer/netrw operations
-vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
+-- vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>i")

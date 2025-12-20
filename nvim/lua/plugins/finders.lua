@@ -1,6 +1,13 @@
 return {
 
   {
+    "nvim-mini/mini.files",
+    lazy = false,
+    keys = { {"<leader>e", function() require("mini.files").open(vim.loop.cwd()) end}, },
+  },
+
+
+  {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
