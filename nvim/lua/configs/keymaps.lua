@@ -38,6 +38,7 @@ vim.keymap.set("n", "<esc>", "<cmd>nohl<cr>")
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
+vim.keymap.set("v", "Y", "\"+y")
 vim.keymap.set("v", "x", "\"_x")
 vim.keymap.set("v", "d", "\"_d")
 
