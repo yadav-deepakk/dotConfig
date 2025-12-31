@@ -6,7 +6,7 @@
 DEFAULT_NAME="demo"
 DEFAULT_PACKAGE="com.example"
 DEFAULT_JAVA_VERSION=25
-DEFAULT_DEPENDENCY_LIST="lombok,actuator,devtools"
+DEFAULT_DEPENDENCY_LIST="lombok,actuator,devtools,docker-compose"
 DEFAULT_DESCRIPTION="Simple spring boot demo project."
 
 parseArgs() {
