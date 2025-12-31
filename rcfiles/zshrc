@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # COMMON DIRECTORIES
-export JDIR=~/dev/jdir/
+export JDIR=~/dev/javadir/
 export OPENSRC=~/dev/opensrc/
 
 # ALIAS
@@ -17,6 +17,8 @@ alias la="ls -la"
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"
+
+export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
