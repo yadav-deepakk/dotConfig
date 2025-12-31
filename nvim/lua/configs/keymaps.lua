@@ -29,16 +29,11 @@ vim.keymap.set("n", "<leader>tt", "<cmd>botright25 split | terminal<cr>i")
 vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
 vim.keymap.set("n", "<leader>dd", "<cmd>bd<cr>")
 
--- indent text in visual mode
 vim.keymap.set("v", "<Tab>", ">gv")
 vim.keymap.set("v", "<S-Tab>", "<gv")
-
--- other useful maps
-vim.keymap.set("n", "<esc>", "<cmd>nohl<cr>")
-vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
-vim.keymap.set("n", "<c-d>", "<c-d>zz")
-vim.keymap.set("n", "<c-u>", "<c-u>zz")
-vim.keymap.set("v", "Y", "\"+y")
+vim.keymap.set("n", "<esc><esc>", "<cmd>nohl<cr>")
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("v", "x", "\"_x")
 vim.keymap.set("v", "d", "\"_d")
+vim.keymap.set("v", "Y", "\"+y")
 

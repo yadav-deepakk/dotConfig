@@ -1,23 +1,26 @@
 return {
 
-  { "mfussenegger/nvim-jdtls", },
-  { "nvim-mini/mini.completion", },
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" },
+  },
 
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "mason-org/mason.nvim", opts = {ui={border="rounded"}} },
+      { "mason-org/mason.nvim", opts = { ui = { border = "rounded" } } },
       "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "nvim-mini/mini.completion"
     },
     config = function()
       require("mini.completion").setup({})
+      local servers = { "vimls", "lua_ls", "ts_ls", "pyright", "jdtls", }
       require("mason-lspconfig").setup({
-        ensure_installed = { "vimls", "lua_ls", "ts_ls", "pyright", "jdtls", },
+        ensure_installed = servers,
       })
       vim.lsp.enable({
-        servers = { "vimls", "lua_ls", "ts_ls", "pyright", "jdtls", },
+        servers = servers,
         on_attach = function(client, bufnr)
           require("mini.completion").on_attach(client, bufnr)
         end
@@ -28,7 +31,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-        "windwp/nvim-ts-autotag",
+      "windwp/nvim-ts-autotag",
     },
     branch = "master",
     lazy = false,
@@ -47,4 +50,3 @@ return {
   },
 
 }
-

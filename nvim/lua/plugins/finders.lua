@@ -6,7 +6,6 @@ return {
     keys = { {"<leader>e", function() require("mini.files").open(vim.loop.cwd()) end}, },
   },
 
-
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -20,8 +19,8 @@ return {
     },
     opts = {
       winopts = {
-        width = 0.82,
-        height = 0.92,
+        width = 0.74,
+        height = 0.98,
         preview = {
           layout = "vertical"
         }

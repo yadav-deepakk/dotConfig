@@ -1,12 +1,6 @@
 return {
 
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {},
-  },
-
-  {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
@@ -19,21 +13,15 @@ return {
   },
 
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { sign = false },
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
   },
 
   {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-      ts_config = {
-        lua = { "string" },
-        javascript = { "template_string" },
-      },
-    },
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = { sign = false },
   },
 
 }
@@ -45,4 +33,3 @@ return {
 -- PERF: only to test working of todo comment - performance.
 -- NOTE: only to test working of todo comment - note.
 -- TEST: only to test working of todo comment - test.
-
