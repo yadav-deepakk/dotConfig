@@ -1,33 +1,32 @@
-vim.g.mapleader=" "
-vim.g.maplocalleader="\\"
-vim.g.netrw_liststyle=3
-vim.g.netrw_browse_split=0
-vim.g.netrw_winsize=25
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+vim.g.netrw_liststyle = 3
+vim.g.netrw_browse_split = 0
+vim.g.netrw_winsize = 25
 
 -- disable netrw
-vim.g.loaded_netrw=1
-vim.g.loaded_netrwPlugin=1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- disable arrow key movements
-vim.keymap.set({"n", "v", "i"}, "<right>", "<cmd>lua print('WARN: press l to move right')<cr>")
-vim.keymap.set({"n", "v", "i"}, "<left>", "<cmd>lua print('WARN: press h to move left')<cr>")
-vim.keymap.set({"n", "v", "i"}, "<down>", "<cmd>lua print('WARN: press j to move down')<cr>")
-vim.keymap.set({"n", "v", "i"}, "<up>", "<cmd>lua print('WARN: press k to move up')<cr>")
+vim.keymap.set({ "n", "v", "i" }, "<right>", "<cmd>lua print('WARN: press l to move right')<cr>")
+vim.keymap.set({ "n", "v", "i" }, "<left>", "<cmd>lua print('WARN: press h to move left')<cr>")
+vim.keymap.set({ "n", "v", "i" }, "<down>", "<cmd>lua print('WARN: press j to move down')<cr>")
+vim.keymap.set({ "n", "v", "i" }, "<up>", "<cmd>lua print('WARN: press k to move up')<cr>")
 
--- window navigation
+-- window operation
 vim.keymap.set("n", "<c-h>", "<c-w>h")
 vim.keymap.set("n", "<c-j>", "<c-w>j")
 vim.keymap.set("n", "<c-k>", "<c-w>k")
 vim.keymap.set("n", "<c-l>", "<c-w>l")
 
--- buffer/netrw operations
--- vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
+-- buffer operations
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
+vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>i")
 vim.keymap.set("n", "<leader>tt", "<cmd>botright25 split | terminal<cr>i")
-vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
-vim.keymap.set("n", "<leader>dd", "<cmd>bd<cr>")
 
 vim.keymap.set("v", "<Tab>", ">gv")
 vim.keymap.set("v", "<S-Tab>", "<gv")
@@ -36,4 +35,3 @@ vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("v", "x", "\"_x")
 vim.keymap.set("v", "d", "\"_d")
 vim.keymap.set("v", "Y", "\"+y")
-
