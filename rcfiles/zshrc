@@ -1,26 +1,34 @@
 #!/bin/bash
 
-# COMMON DIRECTORIES
-export JDIR=~/dev/javadir/
-export OPENSRC=~/dev/opensrc/
-
 # ALIAS
 alias EDITOR=nvim
-alias vi=nvim
-alias vim=nvim
+alias emulator="$HOME/sdks/Android/Sdk/emulator/emulator"
 
-alias l="ls"
-alias ll="ls -lrth"
-alias lr="ls -1R"
-alias la="ls -la"
+# cocoapods gem path
+export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
 
-alias ..="cd .."
-alias ...="cd ../../"
-alias ....="cd ../../../"
+# flutter
+export PATH="$HOME/sdks/flutter/bin:$PATH"
 
+# Android tools
+export ANDROID_HOME="$HOME/sdks/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/platform-tools:$PATH"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+
+# chrome executables
+export CHROME_EXECUTABLE="/Applications/Brave Browser Nightly.app/Contents/MacOS/Brave Browser Nightly"
+
+# jdtls - neovim
 export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
 
+# Node Version Manager (NVM)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load NVM
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# see all installed version of a candidate > ls -la ~/.sdkman/candidates/<candidate-name>
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
