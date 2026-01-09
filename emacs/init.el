@@ -56,9 +56,9 @@
 
 (evil-define-key 'normal 'global
   (kbd "<leader> f f") 'find-file
-  (kbd "<leader> b b") 'switch-to-buffer
-  (kbd "<leader> w w") 'save-buffer
-  (kbd "<leader> q q") 'save-buffers-kill-terminal)
+  (kbd "<leader> b") 'switch-to-buffer
+  (kbd "<leader> w") 'save-buffer
+  (kbd "<leader> q") 'save-buffers-kill-terminal)
 
 ;; --------------------
 ;; Sensible defaults
@@ -73,10 +73,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(custom-enabled-themes '(modus-vivendi-tinted))
+ '(package-selected-packages '(evil-collection)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
