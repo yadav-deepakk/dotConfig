@@ -21,10 +21,14 @@ return {
     },
     opts = {
       winopts = {
-        width = 0.96,
+        width = 0.76,
         height = 0.98,
-      }
-    }
+        preview = {
+          layout = "vertical",
+          hidden = true,
+        },
+      },
+    },
   },
 
   {

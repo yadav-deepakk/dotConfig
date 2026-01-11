@@ -1,4 +1,11 @@
+# emacs dirs
 emacs/auto-save-list
 emacs/elpa
+emacs/eww-bookmarks
 emacs/transient
+emacs/tutorial
+emacs/url
+
+# extras
+flutter
 gh
