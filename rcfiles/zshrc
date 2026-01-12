@@ -2,22 +2,18 @@
 
 # ALIAS
 alias EDITOR=nvim
-alias emulator="$HOME/sdks/Android/Sdk/emulator/emulator"
 
 # cocoapods gem path
 export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
 
-# flutter
-export PATH="$HOME/sdks/flutter/bin:$PATH"
-
-# Android tools
-export ANDROID_HOME="$HOME/sdks/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export PATH="$ANDROID_HOME/platform-tools:$PATH"
-export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-
-# chrome executables
-export CHROME_EXECUTABLE="/Applications/Brave Browser Nightly.app/Contents/MacOS/Brave Browser Nightly"
+# flutter, Android tools, chrome executables
+# export PATH="$HOME/flutter/bin:$PATH"
+# export ANDROID_HOME="$HOME/Android/Sdk"
+# export ANDROID_SDK_ROOT="$ANDROID_HOME"
+# alias emulator="$HOME/Android/Sdk/emulator/emulator"
+# export PATH="$ANDROID_HOME/platform-tools:$PATH"
+# export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+# export CHROME_EXECUTABLE="/Applications/Brave Browser Nightly.app/Contents/MacOS/Brave Browser Nightly"
 
 # jdtls - neovim
 export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
