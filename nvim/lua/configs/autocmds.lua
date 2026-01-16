@@ -7,13 +7,26 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end
 })
 
--- remove trailing spaces
+-- remove trailing spaces and format
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("DKY_GROUP", {}),
   pattern = "*",
   callback = function()
-    vim.cmd [[ %s/\s\+$//e ]]
-    vim.lsp.buf.format()
+    callback = function()
+      vim.cmd([[ %s/\s\+$//e ]])
+      local ft = vim.bo.filetype
+      local exclude_langs = { http = true, rest = true }
+      if not ft or ft == "" or exclude_langs[ft] then
+        return
+      end
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
+      for _, client in ipairs(clients) do
+        if client.supports_method("textDocument/formatting") then
+          vim.lsp.buf.format({ bufnr = 0 })
+          break
+        end
+      end
+    end
   end
 })
 
