@@ -5,7 +5,7 @@ return {
     global_keymaps = false,
   },
   keys = {
-    { "<leader>kr", function() require("kulala").run() end, },
+    { "<CR>", function() require("kulala").run() end, },
     { "<leader>ka", function() require("kulala").run_all() end, },
     { "<leader>ko", function() require("kulala").open() end, },
   },
