@@ -1,5 +1,7 @@
 return {
 
+  { 'nvim-mini/mini.surround', version = false },
+
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
