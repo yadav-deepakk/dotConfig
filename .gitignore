@@ -5,6 +5,7 @@ emacs/eww-bookmarks
 emacs/transient
 emacs/tutorial
 emacs/url
+jgit/
 
 # extras
 flutter
