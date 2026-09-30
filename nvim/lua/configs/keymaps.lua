@@ -4,10 +4,6 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
 
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- disable arrow key movements
 vim.keymap.set({ "n", "v", "i" }, "<right>", "<cmd>lua print('WARN: press l to move right')<cr>")
 vim.keymap.set({ "n", "v", "i" }, "<left>", "<cmd>lua print('WARN: press h to move left')<cr>")

@@ -4,7 +4,7 @@
 alias EDITOR=nvim
 
 # cocoapods gem path
-export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
+# export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
 
 # flutter, Android tools, chrome executables
 # export PATH="$HOME/flutter/bin:$PATH"
@@ -22,6 +22,11 @@ export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/l
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load NVM
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# bun and bun completions
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "/Users/dky/.bun/_bun" ] && source "/Users/dky/.bun/_bun"
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 # see all installed version of a candidate > ls -la ~/.sdkman/candidates/<candidate-name>
