@@ -34,22 +34,29 @@ vim.keymap.set("n", "<leader>e", "<cmd>Lex<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>tt", "<cmd>botright split | terminal<cr>i")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>i")
+vim.keymap.set("n", "<leader>lg", "<cmd>tabnew | terminal lazygit<cr>i")
 
 -- packages
 vim.pack.add {
-	{ src = "https://github.com/rebelot/kanagawa.nvim" },
-	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 
+	{ src = 'https://github.com/navarasu/onedark.nvim'},
+
+	{ src = 'https://github.com/nvim-mini/mini.files'},
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
 
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = 'https://github.com/nvim-mini/mini.completion', version = 'stable' },
+
 }
 
-require("kanagawa").setup({ transparent = true })
-vim.cmd("colorscheme kanagawa-wave")
-require("lualine").setup({})
+-- tui
+require("onedark").setup({ style='darker', transparent = true })
+require("onedark").load()
+vim.cmd("colorscheme onedark")
 
+-- finders
 require("fzf-lua").setup({
 	winopts = {
 		height = 0.96,
@@ -62,6 +69,13 @@ vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<cr>")
 vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua files cwd=~/.config<cr>")
 vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<cr>")
 
+-- lsp, liners, parsers, code completions, 
 require("mason").setup({ ui = { border = "rounded" } })
-vim.lsp.enable({"lua_ls", "vimls", "ts_ls", "sqlls", "pyright", "jdtls"})
+vim.lsp.enable({
+	"lua_ls", "vimls",
+	"pyright", "ts_ls",
+	"sqlls",
+	"jdtls",
+})
+require("mini.completion").setup({})
 
