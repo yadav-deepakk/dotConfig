@@ -2,6 +2,10 @@
 
 # ALIAS
 alias EDITOR=nvim
+alias ll="ls -lh"
+alias la="ls -lah"
+alias lll="ls -lrth"
+alias lla="ls -larth"
 
 # cocoapods gem path
 # export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"

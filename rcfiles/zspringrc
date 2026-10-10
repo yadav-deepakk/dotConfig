@@ -1,66 +1,209 @@
 #!/bin/bash
 
-# ensure installed - sdkman,java,maven/gradle and springboot
+# Spring Initializr Website Options As Per Date: 10 Oct 2026
+#
+# Project : Gradle-Groovy, Gradle-Kotlin, Maven
+# Language : Java, Kotlin, Groovy
+# Spring Boot : 4.2.0(SNAPSHOT), 4.2.0(M2), 4.1.2(SNAPSHOT), 4.1.1, 4.0.9(SNAPSHOT), 4.0.8
+#
+# Project Metadata
+# Group : com.example
+# Artifact : demo
+# Package name : com.example
+# Packaging : Jar, War
+# Configuration : Properties, YAML
+# Java :  27, 25, 21, 17
+# Dependencies : Add dependencies...
+#
+# Ensure installed: sdkman, java, maven/gradle and springboot-cli
+#
+# USAGE
+#   Option 1 - source it (e.g. from ~/.zshrc or ~/.bashrc) and use the functions:
+#       source /path/to/spring-init.sh
+#       springm  -n=shop -g=com.mycompany -j=21 -d=web,data-jpa
+#       springg  ...     # Gradle (Groovy DSL)
+#       springgk ...     # Gradle (Kotlin DSL)
+#
+#   Option 2 - run it directly:
+#       ./spring-init.sh maven  -n=shop -g=com.mycompany
+#       ./spring-init.sh gradle -n=shop
+#       ./spring-init.sh gradle-kotlin -n=shop
+#
+# NOTE: "lombok,devtools,actuator" are always included; -d adds to them.
+#       "springdoc-openapi" is NOT an Initializr dependency (it is a
+#       third-party library), so add it to the pom.xml / build.gradle manually.
 
 # default values if no params has been passed
 DEFAULT_NAME="demo"
-DEFAULT_PACKAGE="com.example"
+DEFAULT_DESCRIPTION="Simple Spring Boot Demo Project."
+DEFAULT_BOOT_VERSION=4.1.1
+DEFAULT_DEPENDENCY_LIST="lombok,devtools,actuator"
+DEFAULT_GROUP_ID="com.example"
+DEFAULT_ARTIFACT_ID="demo"
+DEFAULT_PACKAGE=""            # empty = Initializr derives it from group + artifact
+DEFAULT_PACKAGING="jar"
+DEFAULT_LANGUAGE="java"
 DEFAULT_JAVA_VERSION=25
-DEFAULT_DEPENDENCY_LIST="lombok,actuator,devtools,docker-compose"
-DEFAULT_DESCRIPTION="Simple spring boot demo project."
+
+printUsage() {
+  cat <<EOF
+Usage: springm|springg|springgk [options]
+
+Options:
+  -n,   --name=<name>               Project name / directory  (default: $DEFAULT_NAME)
+  -a,   --artifact-id=<id>          Artifact id               (default: $DEFAULT_ARTIFACT_ID)
+  -g,   --group-id=<id>             Group id                  (default: $DEFAULT_GROUP_ID)
+  -pn,  --package-name=<pkg>        Base package              (default: group + artifact)
+  -des, --description=<text>        Project description
+  -b,   --boot-version=<version>    Spring Boot version       (default: $DEFAULT_BOOT_VERSION)
+  -j,   --java-version=<17|21|25|27>                          (default: $DEFAULT_JAVA_VERSION)
+  -l,   --language=<java|kotlin|groovy>                       (default: $DEFAULT_LANGUAGE)
+  -p,   --packaging=<jar|war>                                 (default: $DEFAULT_PACKAGING)
+  -d,   --dependencies=<a,b,c>      Extra dependencies (added to: $DEFAULT_DEPENDENCY_LIST)
+  -h,   --help                      Show this help
+EOF
+}
 
 parseArgs() {
 
   # default values if no params has been passed
   NAME="$DEFAULT_NAME"
   DESCRIPTION="$DEFAULT_DESCRIPTION"
+  BOOT_VERSION="$DEFAULT_BOOT_VERSION"
+  GROUP_ID="$DEFAULT_GROUP_ID"
+  ARTIFACT_ID="$DEFAULT_ARTIFACT_ID"
   PACKAGE="$DEFAULT_PACKAGE"
+  PACKAGING="$DEFAULT_PACKAGING"
+  LANGUAGE="$DEFAULT_LANGUAGE"
   JAVA_VERSION="$DEFAULT_JAVA_VERSION"
   DEPENDENCY_LIST="$DEFAULT_DEPENDENCY_LIST"
 
   echo "Arguments:" "$@"
 
+  local arg LIST
   for arg in "$@"; do
     case $arg in
-      -n=*|--name=*) NAME="${arg#*=}" ;;
-      -j=*|--java-version=*) JAVA_VERSION="${arg#*=}" ;;
-      -p=*|--package=*) PACKAGE="${arg#*=}" ;;
-      -d=*|--dependencies=*) LIST="${arg#*=}"; DEPENDENCY_LIST="$DEPENDENCY_LIST,$LIST" ;;
-      -des=*|--description=*) DESCRIPTION="${arg#*=}" ;;
-      *) echo "unknown option: $arg"; return 1 ;;
+      -b=*|--boot-version=*)   BOOT_VERSION="${arg#*=}" ;;
+      -d=*|--dependencies=*)   LIST="${arg#*=}"; DEPENDENCY_LIST="$DEPENDENCY_LIST,$LIST" ;;
+      -des=*|--description=*)  DESCRIPTION="${arg#*=}" ;;
+      -a=*|--artifact-id=*)    ARTIFACT_ID="${arg#*=}" ;;
+      -g=*|--group-id=*)       GROUP_ID="${arg#*=}" ;;
+      -j=*|--java-version=*)   JAVA_VERSION="${arg#*=}" ;;
+      -l=*|--language=*)       LANGUAGE="${arg#*=}" ;;
+      -n=*|--name=*)           NAME="${arg#*=}" ;;
+      -p=*|--packaging=*)      PACKAGING="${arg#*=}" ;;
+      -pn=*|--package-name=*)  PACKAGE="${arg#*=}" ;;
+      -h|--help)               printUsage; return 2 ;;
+      *) echo "unknown option: $arg"; printUsage; return 1 ;;
     esac
   done
 
+  # remove duplicate / empty entries from the dependency list
+  DEPENDENCY_LIST=$(echo "$DEPENDENCY_LIST" | tr ',' '\n' | awk 'NF && !seen[$0]++' | paste -sd, -)
+
+  validateArgs
+}
+
+validateArgs() {
+  case "$JAVA_VERSION" in
+    17|21|25|27) ;;
+    *) echo "invalid java version: $JAVA_VERSION (use 17, 21, 25 or 27)"; return 1 ;;
+  esac
+  case "$LANGUAGE" in
+    java|kotlin|groovy) ;;
+    *) echo "invalid language: $LANGUAGE (use java, kotlin or groovy)"; return 1 ;;
+  esac
+  case "$PACKAGING" in
+    jar|war) ;;
+    *) echo "invalid packaging: $PACKAGING (use jar or war)"; return 1 ;;
+  esac
+  if [ -d "$NAME" ]; then
+    echo "directory '$NAME' already exists, choose another project name (-n=...)"
+    return 1
+  fi
 }
 
 printProjectInfo() {
-  echo "project name is: $NAME"
-  echo "package name is: $PACKAGE"
-  echo "java version is: $JAVA_VERSION"
-  echo "dependency list is: $DEPENDENCY_LIST"
-  echo "description is: $DESCRIPTION"
+  echo "ProjectName: $NAME"
+  echo "ProjectDescription: $DESCRIPTION"
+  echo "BootVersion: $BOOT_VERSION"
+  echo "DependenciesList: $DEPENDENCY_LIST"
+  echo "GroupId: $GROUP_ID"
+  echo "ArtifactId: $ARTIFACT_ID"
+  echo "PackageName: ${PACKAGE:-<derived from group + artifact>}"
+  echo "Packaging: $PACKAGING"
+  echo "Language: $LANGUAGE"
+  echo "LanguageVersion: $JAVA_VERSION"
 }
 
+# $1 = build tool (maven|gradle), $2 = project type (maven-project|gradle-project|gradle-project-kotlin)
 runSpringInit() {
+  if ! command -v spring >/dev/null 2>&1; then
+    echo "spring CLI not found. Install it with: sdk install springboot"
+    return 1
+  fi
+
+  local cmd=(spring init
+    --build="$1" -t="$2"
+    -a="$ARTIFACT_ID" -g="$GROUP_ID" -n="$NAME"
+    -d="$DEPENDENCY_LIST" --description="$DESCRIPTION"
+    -b="$BOOT_VERSION" -j="$JAVA_VERSION"
+    -l="$LANGUAGE" -p="$PACKAGING"
+    --debug)
+
+  # only pass --package-name when explicitly set
+  [ -n "$PACKAGE" ] && cmd+=(--package-name="$PACKAGE")
+
+  # last argument = output directory (project name)
+  cmd+=("$NAME")
+
   echo "running init..."
   set -x
-  spring init "$NAME" --build="$1" -t="$1-project" \
-    -a="$NAME" -d="$DEPENDENCY_LIST" --description="$DESCRIPTION" \
-    -j="$JAVA_VERSION" -n="$NAME" -g="$PACKAGE" \
-    --debug
+  "${cmd[@]}"
+  local status=$?
   set +x
-  echo "stopped init!!!"
+
+  if [ $status -eq 0 ]; then
+    echo "project created in ./$NAME"
+  else
+    echo "spring init failed (exit code $status)"
+  fi
+  return $status
 }
 
 springm() {
-  parseArgs "$@" || return 1
+  parseArgs "$@"; local rc=$?
+  [ $rc -eq 2 ] && return 0
+  [ $rc -ne 0 ] && return $rc
   printProjectInfo
-  runSpringInit maven
+  runSpringInit maven maven-project
 }
 
 springg() {
-  parseArgs "$@" || return 1
+  parseArgs "$@"; local rc=$?
+  [ $rc -eq 2 ] && return 0
+  [ $rc -ne 0 ] && return $rc
   printProjectInfo
-  runSpringInit gradle
+  runSpringInit gradle gradle-project
 }
 
+springgk() {
+  parseArgs "$@"; local rc=$?
+  [ $rc -eq 2 ] && return 0
+  [ $rc -ne 0 ] && return $rc
+  printProjectInfo
+  runSpringInit gradle gradle-project-kotlin
+}
+
+# when executed directly (not sourced), dispatch on the first argument
+if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" == "$0" ]]; then
+  tool="$1"
+  [ $# -gt 0 ] && shift
+  case "$tool" in
+    maven|m)                  springm "$@" ;;
+    gradle|g)                 springg "$@" ;;
+    gradle-kotlin|gk)         springgk "$@" ;;
+    *) echo "Usage: $0 <maven|gradle|gradle-kotlin> [options]"; echo "       $0 maven --help"; exit 1 ;;
+  esac
+  exit $?
+fi
