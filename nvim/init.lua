@@ -3,7 +3,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 
-vim.opt.scrolloff = 15
+vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
 vim.opt.expandtab = true
@@ -80,14 +80,14 @@ vim.pack.add {
   { src = 'https://github.com/nvim-mini/mini.completion',      version = 'stable' },
   { src = 'https://github.com/windwp/nvim-autopairs' },
 
-  -- lsp development support
+  -- lsp supporting plugins
   { src = 'https://github.com/mfussenegger/nvim-jdtls' },
 
 }
 
 -- tui
 vim.opt.background = "dark"
-vim.g.everforest_background = "Hard"
+vim.g.everforest_background = "Soft"
 vim.g.everforest_enable_italic = true
 vim.g.everforest_transparent_background = 2
 vim.cmd [[ colorscheme everforest ]]
@@ -156,7 +156,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
     local clients = vim.lsp.get_clients({ bufnr = 0 })
     for _, client in ipairs(clients) do
-      if client.supports_method("textDocument/formatting") then
+      if client:supports_method("textDocument/formatting") then
         vim.lsp.buf.format({ bufnr = 0 })
         break
       end
