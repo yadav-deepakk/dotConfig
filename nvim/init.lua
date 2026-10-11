@@ -2,7 +2,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
-vim.opt.cursorline = true
 
 vim.opt.scrolloff = 15
 vim.opt.sidescrolloff = 8
@@ -33,7 +32,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 400
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-vim.g.loaded_netrw = 1  -- stop netrw from loading
+vim.g.loaded_netrw = 1 -- stop netrw from loading
 vim.g.have_nerd_font = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -66,9 +65,11 @@ vim.keymap.set("n", "<leader>ba", "<cmd>tab ba<cr>")
 -- packages
 vim.pack.add {
 
+  -- tui
   { src = "https://github.com/sainnhe/everforest" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
 
+  -- finders
   { src = 'https://github.com/nvim-mini/mini.files' },
   { src = "https://github.com/ibhagwan/fzf-lua" },
 
@@ -76,8 +77,10 @@ vim.pack.add {
   { src = "https://github.com/mason-org/mason.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
-  { src = 'https://github.com/nvim-mini/mini.completion', version = 'stable' },
+  { src = 'https://github.com/nvim-mini/mini.completion',      version = 'stable' },
+  { src = 'https://github.com/windwp/nvim-autopairs' },
 
+  -- lsp development support
   { src = 'https://github.com/mfussenegger/nvim-jdtls' },
 
 }
@@ -100,8 +103,11 @@ require("mini.files").setup({})
 vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>")
 require("fzf-lua").setup({
   winopts = {
-    height = 0.96,
-    width = 0.92
+    height = 0.95,
+    width = 0.70,
+    preview = {
+      layout = 'vertical'
+    }
   }
 })
 vim.keymap.set("n", "<leader><space>", "<cmd>FzfLua builtin<cr>")
@@ -117,8 +123,9 @@ vim.lsp.enable({
   "pyright", "ts_ls", "sqlls",
   "jdtls" -- for lombok support don't forget to add jvm-args (read the `:h lspconfig-all` jdtls config
 })
+require("nvim-autopairs").setup({})
 
--- diagnostic
+-- lsp diagnostics
 vim.diagnostic.config({
   virtual_text = {
     spacing = 2,
@@ -135,13 +142,26 @@ vim.diagnostic.config({
 
 require("mini.completion").setup({})
 
--- autocommands
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "help",
+-- autocmds
+-- before writing remove trailing spaces and format(if lsp supports it)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("DKY_GROUP", {}),
+  pattern = "*",
   callback = function()
-    vim.opt_local.number = true
-    vim.keymap.set("n", "q", "<cmd>quit<cr>")
-  end,
+    vim.cmd([[ %s/\s\+$//e ]]) -- remove spaces
+    local ft = vim.bo.filetype
+    local exclude_langs = { http = true, rest = true }
+    if not ft or ft == "" or exclude_langs[ft] then
+      return
+    end
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    for _, client in ipairs(clients) do
+      if client.supports_method("textDocument/formatting") then
+        vim.lsp.buf.format({ bufnr = 0 })
+        break
+      end
+    end
+  end
 })
 
 -- highlight yanked text
@@ -152,4 +172,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.hl.on_yank({ timeout = 80 })
   end
 })
-
