@@ -20,7 +20,7 @@ alias lla="ls -larth"
 # export CHROME_EXECUTABLE="/Applications/Brave Browser Nightly.app/Contents/MacOS/Brave Browser Nightly"
 
 # jdtls - neovim
-export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
+# export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/jdtls/lombok.jar"
 
 # Node Version Manager (NVM)
 export NVM_DIR="$HOME/.nvm"
