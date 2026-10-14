@@ -4,7 +4,7 @@
 alias EDITOR=nvim
 alias ll="ls -lh"
 alias la="ls -lah"
-alias lll="ls -lrth"
+alias lls="ls -lrth"
 alias lla="ls -larth"
 
 # cocoapods gem path
