@@ -2,6 +2,4 @@
 vim.env.JDTLS_JVM_ARGS = "-javaagent:" .. vim.fn.stdpath("data")
     .. "/mason/packages/jdtls/lombok.jar"
 
-return {
-
-}
+return {}

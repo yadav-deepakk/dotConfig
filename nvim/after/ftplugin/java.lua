@@ -13,15 +13,6 @@ vim.cmd [[
   vnoremap crm <Esc><Cmd>lua require('jdtls').extract_method(true)<CR>
 ]]
 
-require("fzf-lua").setup({
-  winopts = {
-    height = 0.96,
-    width = 0.94,
-    preview = {
-      layout = "horizontal"
-    }
-  }
-})
 -- If using nvim-dap
 -- This requires java-debug and vscode-java-test bundles
 -- vim.cmd [[
