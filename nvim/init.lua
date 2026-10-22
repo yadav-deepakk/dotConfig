@@ -6,6 +6,7 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.swapfile = false
 vim.opt.autoread = true
+vim.opt.confirm = true
 vim.opt.exrc = true
 
 vim.opt.scrolloff = 15
@@ -51,6 +52,11 @@ vim.keymap.set("n", "<c-j>", "<c-w>j")
 vim.keymap.set("n", "<c-k>", "<c-w>k")
 vim.keymap.set("n", "<c-l>", "<c-w>l")
 
+vim.keymap.set("n", "<c-d>", "<c-d>zz")
+vim.keymap.set("n", "<c-u>", "<c-u>zz")
+vim.keymap.set("v", "n", "nzz")
+vim.keymap.set("v", "N", "Nzz")
+
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("v", "<tab>", ">gv")
@@ -76,6 +82,7 @@ vim.pack.add {
   { src = 'https://github.com/sainnhe/everforest' },
   { src = 'https://github.com/nvim-mini/mini.icons' },
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
 
   { src = 'https://github.com/nvim-mini/mini.files' },
   { src = 'https://github.com/ibhagwan/fzf-lua' },
@@ -117,6 +124,7 @@ for _, group in ipairs(groups) do
   vim.api.nvim_set_hl(0, group, { bg = 'none' })
 end
 require('lualine').setup({})
+require('render-markdown').setup({})
 
 -------------------------------
 -- finders
@@ -182,7 +190,7 @@ require('nvim-autopairs').setup({})
 require('nvim-ts-autotag').setup({})
 require('mini.completion').setup({})
 
--- xcode related build
+-- xcodebuild.nvim
 require('xcodebuild').setup({})
 
 -------------------------------
@@ -210,7 +218,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('HIGHLIGHT_YANK_GROUP', {}),
   pattern = '*',
   callback = function()
-    vim.hl.on_yank({ timeout = 80 })
+    vim.hl.on_yank({ timeout = 50 })
   end
 })
 
