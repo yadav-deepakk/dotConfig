@@ -54,8 +54,8 @@ vim.keymap.set("n", "<c-l>", "<c-w>l")
 
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
-vim.keymap.set("v", "n", "nzz")
-vim.keymap.set("v", "N", "Nzz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
@@ -82,7 +82,6 @@ vim.pack.add {
   { src = 'https://github.com/sainnhe/everforest' },
   { src = 'https://github.com/nvim-mini/mini.icons' },
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
-  { src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
 
   { src = 'https://github.com/nvim-mini/mini.files' },
   { src = 'https://github.com/ibhagwan/fzf-lua' },
@@ -124,7 +123,6 @@ for _, group in ipairs(groups) do
   vim.api.nvim_set_hl(0, group, { bg = 'none' })
 end
 require('lualine').setup({})
-require('render-markdown').setup({})
 
 -------------------------------
 -- finders
