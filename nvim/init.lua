@@ -4,10 +4,11 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
 vim.opt.swapfile = false
 vim.opt.autoread = true
 vim.opt.confirm = true
-vim.opt.exrc = true
+vim.opt.exrc = false
 
 vim.opt.scrolloff = 15
 vim.opt.sidescrolloff = 8
@@ -68,6 +69,7 @@ vim.keymap.set("n", "ciq", "ci'")
 vim.keymap.set("n", "ciQ", 'ci"')
 
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
+vim.keymap.set("n", "<leader>Q", "<cmd>copen<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>update<cr>")
 vim.keymap.set("n", "<leader>tt", "<cmd>botright split | terminal<cr>i")
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew | terminal<cr>i")

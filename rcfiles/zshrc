@@ -2,6 +2,8 @@
 
 # ALIAS
 alias EDITOR=nvim
+alias n=nvim
+alias v=vim
 alias ll="ls -lh"
 alias la="ls -lah"
 alias lls="ls -lrth"
