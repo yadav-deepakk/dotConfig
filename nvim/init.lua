@@ -57,6 +57,8 @@ vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "{", "{zz")
+vim.keymap.set("n", "}", "}zz")
 
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
@@ -84,6 +86,7 @@ vim.pack.add {
   { src = 'https://github.com/sainnhe/everforest' },
   { src = 'https://github.com/nvim-mini/mini.icons' },
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = "https://github.com/kevinhwang91/nvim-hlslens" },
 
   { src = 'https://github.com/nvim-mini/mini.files' },
   { src = 'https://github.com/ibhagwan/fzf-lua' },
@@ -113,7 +116,7 @@ MiniIcons.setup()
 MiniIcons.mock_nvim_web_devicons()
 MiniIcons.tweak_lsp_kind()
 vim.opt.background = 'dark'
-vim.g.everforest_background = 'Soft'
+vim.g.everforest_background = 'Hard'
 vim.g.everforest_enable_italic = true
 vim.g.everforest_transparent_background = 2
 vim.cmd.colorscheme('everforest')
@@ -125,6 +128,18 @@ for _, group in ipairs(groups) do
   vim.api.nvim_set_hl(0, group, { bg = 'none' })
 end
 require('lualine').setup({})
+
+-- hlslens
+require('hlslens').setup({})
+local kopts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap('n', 'n',
+  [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'N',
+  [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
 -------------------------------
 -- finders
