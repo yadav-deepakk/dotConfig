@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# ALIAS
+alias EDITOR=nvim
+alias n=nvim
+alias nv=nvim
+alias v=vim
+
+alias l="ls -la"
+alias ll="ls -larth"
+
+alias rg='rg -p'
+
+alias java="java --enable-preview"
+
+export LESS='-R'

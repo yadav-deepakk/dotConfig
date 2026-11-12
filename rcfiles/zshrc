@@ -19,17 +19,6 @@ prompt_info() {
 
 export PS1='$(prompt_info)❯ '
 
-# ALIAS
-alias EDITOR=nvim
-alias n=nvim
-alias nv=nvim
-alias v=vim
-
-alias l="ls -la"
-alias ll="ls -larth"
-
-alias java="java --enable-preview"
-
 # cocoapods gem path
 # export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
 
