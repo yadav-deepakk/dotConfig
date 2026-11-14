@@ -59,6 +59,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "{", "{zz")
 vim.keymap.set("n", "}", "}zz")
+vim.keymap.set("n", "G", "Gzz")
 
 vim.keymap.set("n", "<esc><esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
@@ -66,9 +67,6 @@ vim.keymap.set("v", "<tab>", ">gv")
 vim.keymap.set("v", "<s-tab>", "<gv")
 vim.keymap.set("v", "Y", '"+y')
 vim.keymap.set("v", "d", '"_d')
-
-vim.keymap.set("n", "ciq", "ci'")
-vim.keymap.set("n", "ciQ", 'ci"')
 
 vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>")
 vim.keymap.set("n", "<leader>Q", "<cmd>copen<cr>")
