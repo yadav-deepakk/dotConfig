@@ -8,13 +8,13 @@ prompt_info() {
   local branch
   branch=$(git branch --show-current 2>/dev/null)
   if [ "$PWD" = "/" ]; then
-    printf "%%F{red}\363\260\211\213%%f / "
+    printf "%%F{#FF4500}\363\260\211\213%%f / "
   elif [ "$PWD" = "$HOME" ]; then
-    printf "%%F{blue}\363\260\213\234 ~ %%f"
+    printf "%%F{#00BFFF}\363\260\213\234 ~ %%f"
   else
-    printf "%%F{blue}\363\260\211\213 %s %%f" "${PWD##*/}"
+    printf "%%F{#00BFFF}\363\260\211\213 %s %%f" "${PWD##*/}"
   fi
-  [ -n "$branch" ] && printf "%%F{green}\363\260\230\254%%f %s " "$branch"
+  [ -n "$branch" ] && printf "%%F{#00FF00}\363\260\230\254%%f %s " "$branch"
 }
 
 export PS1='$(prompt_info)❯ '

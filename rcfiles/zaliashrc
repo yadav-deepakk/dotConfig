@@ -12,5 +12,3 @@ alias ll="ls -larth"
 alias rg='rg -p'
 
 alias java="java --enable-preview"
-
-export LESS='-R'
