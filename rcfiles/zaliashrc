@@ -1,9 +1,10 @@
 #!/bin/bash
 
+setopt prompt_subst
+
 # ALIAS
 alias java="java --enable-preview"
 
-alias EDITOR=nvim
 alias v=vim
 alias n=nvim
 alias nv=nvim

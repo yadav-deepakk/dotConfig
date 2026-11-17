@@ -1,0 +1,29 @@
+add_newline = false
+
+format = """
+$custom\
+$git_branch\
+$character"""
+
+[custom.current_directory]
+command = """
+if [ "$PWD" = "/" ]; then
+  printf "  /"
+elif [ "$PWD" = "$HOME" ]; then
+  printf "󰋜  ~"
+else
+  printf "󰉋 %s" "${PWD##*/}"
+fi
+"""
+when = true
+shell = ["zsh"]
+format = "[$output](#00BFFF) "
+
+[git_branch]
+format = "[ $branch](#00FF00) "
+symbol = ""
+
+[character]
+success_symbol = "[❯](bold white)"
+error_symbol = "[❯](bold white)"
+
