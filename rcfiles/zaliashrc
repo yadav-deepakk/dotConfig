@@ -1,14 +1,25 @@
 #!/bin/bash
 
 # ALIAS
+alias java="java --enable-preview"
+
 alias EDITOR=nvim
+alias v=vim
 alias n=nvim
 alias nv=nvim
-alias v=vim
+alias nvi=nvim
 
-alias l="ls -la"
+alias l="ls -lh"
+alias la="ls -lah"
 alias ll="ls -larth"
 
 alias rg='rg -p'
+alias cat='bat'
 
-alias java="java --enable-preview"
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gch='git checkout'
+alias gst='git stash'
+alias glo='git log --oneline'
+

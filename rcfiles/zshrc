@@ -5,19 +5,38 @@ export CLICOLOR=1
 setopt prompt_subst
 
 prompt_info() {
-  local branch
-  branch=$(git branch --show-current 2>/dev/null)
   if [ "$PWD" = "/" ]; then
-    printf "%%F{#FF4500}\363\260\211\213%%f / "
+    printf "%%F{#FF4500} /%%f "
   elif [ "$PWD" = "$HOME" ]; then
-    printf "%%F{#00BFFF}\363\260\213\234 ~ %%f"
+    printf "%%F{#00BFFF} ~ %%f"
   else
     printf "%%F{#00BFFF}\363\260\211\213 %s %%f" "${PWD##*/}"
   fi
-  [ -n "$branch" ] && printf "%%F{#00FF00}\363\260\230\254%%f %s " "$branch"
+  local branch
+  branch=$(git branch --show-current 2>/dev/null)
+  [ -n "$branch" ] && printf "%%F{#00FF00}\363\260\230\254 $branch %%f"
+
 }
 
 export PS1='$(prompt_info)❯ '
+
+google(){ open -a Helium "https://www.google.com/search?q=${(j:+:)@}"; }
+youtube(){ open -a Helium "https://www.youtube.com/results?search_query=${(j:+:)@}"; }
+reddit(){ open -a Helium "https://www.reddit.com/search/?q=${(j:+:)@}"; }
+redditr() {
+  local sub="$1"; shift
+  if [[ -z "$sub" ]]; then
+    return 1
+  fi
+  if (( $# == 0 )); then
+    open -a Helium "https://www.reddit.com/r/${sub}/"
+  else
+    open -a Helium "https://www.reddit.com/r/${sub}/search/?q=${(j:+:)@}&restrict_sr=1"
+  fi
+}
+googlet(){ open -a Helium "https://translate.google.com/?sl=auto&tl=hi&op=translate&text=${(j:+:)@}"; }
+amazon(){ open -a Helium "https://www.amazon.in/s?k=${(j:+:)@}"; }
+flipkart(){ open -a Helium "https://www.flipkart.com/search?marketplace=FLIPKART&as-show=on&as=off&q=${(j:+:)@}"; }
 
 # cocoapods gem path
 # export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
