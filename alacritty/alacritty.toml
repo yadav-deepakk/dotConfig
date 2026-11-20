@@ -1,0 +1,38 @@
+[selection]
+save_to_clipboard = true
+
+# Window
+[window]
+opacity = 0.1
+blur = true
+decorations = "Buttonless"
+option_as_alt = "Both"
+padding = { x = 0, y = 0 }
+
+# Font
+[font]
+size = 12.5
+normal      = { family = "FiraCode Nerd Font Propo", style = "Regular" }
+bold        = { family = "FiraCode Nerd Font Propo", style = "Bold" }
+italic      = { family = "FiraCode Nerd Font Propo", style = "Regular" }
+bold_italic = { family = "FiraCode Nerd Font Propo", style = "Bold" }
+
+# Cursor
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+
+[colors.cursor]
+cursor = "#00DDFF"
+text   = "#111111"
+
+# Keybindings (these drive tmux, see below)
+[keyboard]
+bindings = [
+  { key = "T", mods = "Command", chars = "\u0002c" },
+  { key = "D", mods = "Command", chars = "\u0002%" },
+  { key = "D", mods = "Command|Shift", chars = "\u0002\"" },
+  { key = "Return", mods = "Command|Shift", chars = "\u0002z" },
+
+  { key = "G", mods = "Command|Shift", chars = "\u0002G" },
+  { key = "H", mods = "Command|Shift", chars = "\u0002H" },
+]
