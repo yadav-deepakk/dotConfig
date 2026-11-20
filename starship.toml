@@ -8,9 +8,9 @@ $character"""
 [custom.current_directory]
 command = """
 if [ "$PWD" = "/" ]; then
-  printf "  /"
+  printf "󰷌 /"
 elif [ "$PWD" = "$HOME" ]; then
-  printf "󰋜  ~"
+  printf "󰋜 ~"
 else
   printf "󰉋 %s" "${PWD##*/}"
 fi
@@ -20,7 +20,7 @@ shell = ["zsh"]
 format = "[$output](#00BFFF) "
 
 [git_branch]
-format = "[ $branch](#00FF00) "
+format = "[ $branch](#00FF00) "
 symbol = ""
 
 [character]
