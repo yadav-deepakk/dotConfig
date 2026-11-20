@@ -3,8 +3,24 @@
 eval "$(starship init zsh)"
 
 export CLICOLOR=1
-export EDITOR=/opt/homebrew/bin/vim
 
+# opencode
+export PATH=$PATH:/Users/dky/.opencode/bin
+
+# ffmpeg-full
+export PATH=/opt/homebrew/opt/ffmpeg-full/bin:$PATH
+export LDFLAGS=-L/opt/homebrew/opt/ffmpeg-full/lib
+export CPPFLAGS=-I/opt/homebrew/opt/ffmpeg-full/include
+
+# Zsh Line Editor configuration
+bindkey -e
+export EDITOR="vim"
+export VISUAL="vim"
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
+# Shortcut to search on the web
 google(){ open -a Helium "https://www.google.com/search?q=${(j:+:)@}"; }
 youtube(){ open -a Helium "https://www.youtube.com/results?search_query=${(j:+:)@}"; }
 reddit(){ open -a Helium "https://www.reddit.com/search/?q=${(j:+:)@}"; }
