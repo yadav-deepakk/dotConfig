@@ -19,10 +19,12 @@ bold_italic = { family = "FiraCode Nerd Font Propo", style = "Bold" }
 
 # Cursor
 [cursor]
-style = { shape = "Block", blinking = "Off" }
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+blink_timeout = 0
 
 [colors.cursor]
-cursor = "#00DDFF"
+cursor = "#55FF00"
 text   = "#111111"
 
 # Keybindings (these drive tmux, see below)
@@ -31,8 +33,14 @@ bindings = [
   { key = "T", mods = "Command", chars = "\u0002c" },
   { key = "D", mods = "Command", chars = "\u0002%" },
   { key = "D", mods = "Command|Shift", chars = "\u0002\"" },
-  { key = "Return", mods = "Command|Shift", chars = "\u0002z" },
 
+  { key = "]", mods = "Command", chars = "\u0002n" },
+  { key = "[", mods = "Command", chars = "\u0002p" },
+  { key = "{", mods = "Command|Shift", chars = "\u0002(" },
+  { key = "}", mods = "Command|Shift", chars = "\u0002)" },
+
+  { key = "Return", mods = "Command|Shift", chars = "\u0002z" },
   { key = "G", mods = "Command|Shift", chars = "\u0002G" },
   { key = "H", mods = "Command|Shift", chars = "\u0002H" },
+
 ]
